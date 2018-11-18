@@ -1,11 +1,19 @@
-export const test = () => {
+import * as actionTypes from './actionTypes';
+
+export const pageIncrement = () => {
     return {
-        type: 'TEST_ACTION'
+        type: actionTypes.PAGE_INCREMENT
+    }
+}
+
+export const pageDecrement = () => {
+    return {
+        type: actionTypes.PAGE_DECREMENT
     }
 }
 
 export const initialFetch = () => {
     return {
-        type: 'INITIAL_FETCH'
+        type: actionTypes.INITIAL_FETCH
     }
 }

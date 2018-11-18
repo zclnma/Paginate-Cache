@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -8,7 +8,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
 import Drawer from 'components/Drawer/Drawer';
-import { Hidden } from '@material-ui/core';
 
 const styles = {
   card: {
@@ -53,7 +52,7 @@ class Ticket extends Component {
   }
 
   render(){
-    const { classes, coreData} = this.props;
+    const { classes, coreData, serviceData} = this.props;
     const moreData = this.props.coreData.moreData;
     return (
       <>
@@ -74,11 +73,11 @@ class Ticket extends Component {
           <div className={classes.description}>
             <Typography className={classes.desc}>
               {coreData.shortDescription}
-            </Typography>
+          </Typography>
           </div>
         </CardContent>
         <CardActions>
-            <Drawer number={coreData.number} moreData={moreData}/>
+            <Drawer number={coreData.number} serviceData={serviceData}/>
         </CardActions>
       </Card>
 

@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import { applyMiddleware, createStore, combineReducers, compose} from 'redux'
+import { applyMiddleware, createStore, compose} from 'redux'
 import createSagaMiddleware from 'redux-saga';
 
 import './index.css';
 import App from './App';
-import pagerReducer from 'store/reducers/pager';
 import ticketsReducer from 'store/reducers/tickets';
 import {
     watchSaga
@@ -16,14 +15,9 @@ import * as serviceWorker from './serviceWorker';
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 
-const rootReducer = combineReducers({
-    pager: pagerReducer,
-    tickets: ticketsReducer
-})
-
 const sagaMiddleware = createSagaMiddleware()
 
-const store = createStore(rootReducer, composeEnhancers(
+const store = createStore(ticketsReducer, composeEnhancers(
     applyMiddleware(sagaMiddleware)
 ));
 

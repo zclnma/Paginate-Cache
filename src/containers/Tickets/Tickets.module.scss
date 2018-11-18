@@ -1,4 +1,4 @@
-.TicketArea {
+.ticketArea {
     width: 840px;
     padding-top: 50px;
     margin: auto;
@@ -6,5 +6,15 @@
     flex-wrap: wrap;
 }
 
-
+.container {
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    margin-top: 20px;
+    padding: auto;
+    .item {
+        margin: auto;
+    }
+}
 

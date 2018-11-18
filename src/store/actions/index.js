@@ -1,8 +1,5 @@
 export {
     pageDecrement,
-    pageIncrement
-} from './pager'
-
-export {
+    pageIncrement,
     initialFetch,
 } from './tickets'

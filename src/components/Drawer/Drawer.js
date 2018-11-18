@@ -5,23 +5,27 @@ import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import { Hidden } from '@material-ui/core';
 
 
 const styles = {
   list: {
-    width: 400,
+    width: 500,
   },
   fullList: {
     width: 'auto',
   },
   key:{
     fontSize: 10,
-    width: '20%',
-    marginRight: '20px'
+    width: '30%',
+    marginRight: '20px',
+    overflow: 'hidden',
 
   },
   value:{
-    fontSize: 14
+    width: '60%',
+    fontSize: 14,
+    overflow: 'hidden',
   }
 };
 
@@ -37,16 +41,16 @@ class TemporaryDrawer extends React.Component {
   };
 
   render() {
-    const { classes, moreData, number } = this.props;
+    const { classes, serviceData, number } = this.props;
 
     const sideList = (
       <div className={classes.list}>
         <List>
           <ListItem>{number}</ListItem>
-          { moreData ? Object.keys(moreData).map((key,index) => (
+          { serviceData ? Object.keys(serviceData).map((key,index) => (
             <ListItem key={index}>
               <div className={classes.key}>{key}</div>
-              <div className={classes.value}>{moreData[key]}</div>
+              <div className={classes.value}>{serviceData[key]}</div>
             </ListItem>
           )) : null}
         </List>
@@ -72,7 +76,7 @@ class TemporaryDrawer extends React.Component {
 
 TemporaryDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
-  //moreData: PropTypes.object.isRequired,
+  serviceData: PropTypes.object.isRequired,
   number: PropTypes.string.isRequired,
 };
 

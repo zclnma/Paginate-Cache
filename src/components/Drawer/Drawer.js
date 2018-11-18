@@ -4,10 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+
 
 const styles = {
   list: {
@@ -16,8 +14,14 @@ const styles = {
   fullList: {
     width: 'auto',
   },
-  button: {
-    fontSize: '1vw'
+  key:{
+    fontSize: 10,
+    width: '20%',
+    marginRight: '20px'
+
+  },
+  value:{
+    fontSize: 14
   }
 };
 
@@ -33,22 +37,16 @@ class TemporaryDrawer extends React.Component {
   };
 
   render() {
-    const { classes, moreData } = this.props;
+    const { classes, moreData, number } = this.props;
 
     const sideList = (
       <div className={classes.list}>
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
+          <ListItem>{number}</ListItem>
+          {Object.keys(moreData).map((key,index) => (
+            <ListItem key={index}>
+              <div className={classes.key}>{key}</div>
+              <div className={classes.value}>{moreData[key]}</div>
             </ListItem>
           ))}
         </List>
@@ -74,6 +72,8 @@ class TemporaryDrawer extends React.Component {
 
 TemporaryDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
+  moreData: PropTypes.object.isRequired,
+  number: PropTypes.string.isRequired,
 };
 
 export default withStyles(styles)(TemporaryDrawer);

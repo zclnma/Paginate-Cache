@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^3.5.1",
     "cssnano": "^4.1.7",
+    "node-sass": "^4.10.0",
     "postcss-aspect-ratio-mini": "0.0.2",
     "postcss-px-to-viewport": "0.0.3",
     "postcss-viewport-units": "^0.1.6",

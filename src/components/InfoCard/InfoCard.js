@@ -1,10 +1,10 @@
 import React, {Component, Fragment} from 'react';
 import PropTypes from 'prop-types';
+
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import Drawer from 'components/Drawer/Drawer';
@@ -12,7 +12,7 @@ import Drawer from 'components/Drawer/Drawer';
 const styles = {
   card: {
     width: '200px',
-    height: '200px',
+    height: '180px',
     marginRight: 'auto',
     marginLeft: 'auto',
     marginBottom: '10px'
@@ -37,12 +37,16 @@ class Info extends Component {
     showDrawer: false
   }
 
+  componentDidMount = () => {
+    
+  }
   clickHandler = () => {
     console.log('Card Clicked')
   }
 
   render(){
-    const { classes, coreData, moreData} = this.props;
+    const { classes, coreData} = this.props;
+    const moreData = this.props.coreData.moreData;
     return (
       <>
       <Card onClick={this.clickHandler} className={classes.card}>
@@ -64,7 +68,7 @@ class Info extends Component {
           </Typography>
         </CardContent>
         <CardActions>
-          <Drawer moreData={moreData}/>
+            <Drawer number={coreData.number} moreData={moreData}/>
         </CardActions>
       </Card>
 
@@ -75,6 +79,7 @@ class Info extends Component {
 
 Info.propTypes = {
   classes: PropTypes.object.isRequired,
+  coreData: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Info);

@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
-import style from './Info.module.css';
-
+import style from './Info.module.scss';
 import InfoCard from 'components/InfoCard/InfoCard';
 
 const coreData = {
@@ -10,14 +9,13 @@ const coreData = {
     sta: "New",
     shortDescription: "This is a Description",
     application:"Application",
-    assigness: "Assigness"
+    assigness: "Assigness",
+    moreData: {
+        assignedTo: '123',
+        shortDescription: 'another description',
+    }
   }
   
-  const moreData = {
-    assignedTo: '123',
-    shortDescription: 'another description',
-  }
-
 class Info extends Component {
   render() {
 
@@ -36,9 +34,9 @@ class Info extends Component {
         <InfoCard coreData={coreData}/>
         <InfoCard coreData={coreData}/>
         <div className={style.pageControl}>
-            <span>Back</span>
-            <span>page 1 of 414</span>
-            <span>Next</span>
+           <button>Back</button>
+            page 1 of 414
+            <button>Next</button>
         </div>
     </div>
 

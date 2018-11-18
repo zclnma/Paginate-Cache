@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux';
 
 import style from './Info.module.scss';
+
+import { test } from 'store/actions/action';
 import InfoCard from 'components/InfoCard/InfoCard';
 
 const coreData = {
@@ -35,8 +38,8 @@ class Info extends Component {
         <InfoCard coreData={coreData}/>
         <div className={style.pageControl}>
            <button>Back</button>
-            page 1 of 414
-            <button>Next</button>
+            page {this.props.counter} of 414
+            <button onClick={this.props.onTest}>Next</button>
         </div>
     </div>
 
@@ -48,4 +51,16 @@ class Info extends Component {
   }
 }
 
-export default Info;
+const mapStateToProps = state => {
+  return {
+    counter: state.counter
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onTest: () => dispatch(test())
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Info);

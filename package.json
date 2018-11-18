@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.5.1",
+    "axios": "^0.18.0",
     "cssnano": "^4.1.7",
     "node-sass": "^4.10.0",
     "postcss-aspect-ratio-mini": "0.0.2",

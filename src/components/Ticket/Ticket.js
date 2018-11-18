@@ -8,6 +8,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
 import Drawer from 'components/Drawer/Drawer';
+import { Hidden } from '@material-ui/core';
 
 const styles = {
   card: {
@@ -28,11 +29,18 @@ const styles = {
     marginBottom: 5,
   },
   desc: {
-    fontSize: 12
+    fontSize: 12,
+  },
+  description: {
+    height: 32,
+    overflow: 'hidden',
+    '::after' : {
+      content: '...'
+    }
   }
 };
 
-class Info extends Component {
+class Ticket extends Component {
   state = {
     showDrawer: false
   }
@@ -63,9 +71,11 @@ class Info extends Component {
           <Typography className={classes.pos} color="textSecondary">
             Assignee:{coreData.application}
           </Typography>
-          <Typography className={classes.desc}>
-            {coreData.shortDescription}
-          </Typography>
+          <div className={classes.description}>
+            <Typography className={classes.desc}>
+              {coreData.shortDescription}
+            </Typography>
+          </div>
         </CardContent>
         <CardActions>
             <Drawer number={coreData.number} moreData={moreData}/>
@@ -77,9 +87,9 @@ class Info extends Component {
   }
 }
 
-Info.propTypes = {
+Ticket.propTypes = {
   classes: PropTypes.object.isRequired,
-  coreData: PropTypes.object.isRequired,
+  //coreData: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Info);
+export default withStyles(styles)(Ticket);

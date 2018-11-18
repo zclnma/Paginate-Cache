@@ -1,11 +1,13 @@
-import { takeEvery, all, takeLatest } from 'redux-saga/effects';
+import { takeEvery, all} from 'redux-saga/effects';
 
 import {
-    testSaga
-} from './saga'
+    testSaga,
+    initialFetchSaga
+} from './tickets'
 
 export function* watchSaga() {
     yield all([
         takeEvery('TEST_ACTION', testSaga),
+        takeEvery('INITIAL_FETCH', initialFetchSaga)
     ])
 }

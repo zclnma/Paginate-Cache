@@ -43,12 +43,12 @@ class TemporaryDrawer extends React.Component {
       <div className={classes.list}>
         <List>
           <ListItem>{number}</ListItem>
-          {Object.keys(moreData).map((key,index) => (
+          { moreData ? Object.keys(moreData).map((key,index) => (
             <ListItem key={index}>
               <div className={classes.key}>{key}</div>
               <div className={classes.value}>{moreData[key]}</div>
             </ListItem>
-          ))}
+          )) : null}
         </List>
       </div>
     );
@@ -72,7 +72,7 @@ class TemporaryDrawer extends React.Component {
 
 TemporaryDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
-  moreData: PropTypes.object.isRequired,
+  //moreData: PropTypes.object.isRequired,
   number: PropTypes.string.isRequired,
 };
 

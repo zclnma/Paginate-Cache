@@ -1,10 +1,17 @@
-import React, { Component } from 'react';
-import Info from 'containers/Info/Info';
+import React, { Component} from 'react';
+
+import Tickets from 'containers/Tickets/Tickets';
+import Pager from 'containers/Pager/Pager';
+
+import style from './App.scss';
 
 class App extends Component {
   render() {
     return (
-        <Info />
+      <div className={style.container}>
+        <Tickets />
+        <Pager />
+      </div>
     );
   }
 }

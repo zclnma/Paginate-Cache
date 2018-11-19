@@ -40,13 +40,48 @@ export function* pageIncrementSaga(action){
     const currentPage = yield select(state => state.currentPage);
     const totalPage = yield select(state => state.totalPage);
     console.log(currentPage,totalPage);
-    if (totalPage - currentPage === 2){
-        yield put({
-            type: actionTypes.PAGE_INCREMENT_NORMAL,
-        })
+    // if pages increase too fast
+    if(currentPage <= totalPage){
+        if (totalPage - currentPage === 2){
+            yield put({
+                type: actionTypes.PAGE_INCREMENT_START,
+            })
+            try {
+                const paramString = '/tickets?ticketType=incident&sortDirection=DESC&perPage=12&page='
+                const params = [
+                    `${paramString}${totalPage}`,
+                    `${paramString}${totalPage + 1}`,
+                    `${paramString}${totalPage + 2}`,
+                    `${paramString}${totalPage + 3}`,
+                    `${paramString}${totalPage + 4}`,
+                    `${paramString}${totalPage + 5}`,
+                    `${paramString}${totalPage + 6}`,
+                    `${paramString}${totalPage + 7}`,
+                ]
+                let responses  = yield params.map(param => call(axios, param)) 
+                console.log("RESPONSE DATA:",responses);
+                const newPages = responses.map(response => response.data).map(pages => pageTransformer(pages))
+                //const newPages = tickets.map(pages => pageTransformer(pages));
+                //console.log(newPages)
+                yield put({
+                    type: actionTypes.PAGE_INCREMENT_SUCCESS,
+                    pages: newPages,
+                    lengthIncrement: newPages.length
+                })
+            } catch(error) {
+                yield put({
+                    type: actionTypes.PAGE_INCREMENT_FAIL,
+                })
+            }
+        } else {
+            // if page
+            yield put({
+                type: actionTypes.PAGE_INCREMENT_NORMAL,
+            })
+        }
     } else {
         yield put({
-            type: actionTypes.PAGE_INCREMENT_NORMAL,
+            type: actionTypes.PAGE_INCREMENT_QUICK
         })
     }
 }

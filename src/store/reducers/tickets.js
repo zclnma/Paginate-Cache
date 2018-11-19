@@ -8,6 +8,13 @@ const initialState = {
     tickets: {}
 }
 
+const pageDecrement = (state,action) => {
+    return {
+        ...state,
+        currentPage: state.currentPage - 1,
+    }
+}
+
 const pageIncrement = (state,action) => {
     return {
         ...state,
@@ -15,10 +22,29 @@ const pageIncrement = (state,action) => {
     }
 }
 
-const pageDecrement = (state,action) => {
+const pageIncrementStart = (state,action) => {
     return {
         ...state,
-        currentPage: state.currentPage - 1,
+        currentPage: state.currentPage + 1,
+    }
+}
+
+const pageIncrementSuccess = (state,action) => {
+    return {
+        ...state,
+        loading: false,
+        totalPage: state.totalPage + action.lengthIncrement,
+        tickets: {
+            ...state.tickets,
+            ...action.pages
+        }
+    }
+}
+
+const pageIncrementFail = (state,action) => {
+    return {
+        ...state,
+        error: 'error'
     }
 }
 
@@ -29,7 +55,7 @@ const initialFetchSuccess = (state, action) => {
         totalPage: state.totalPage + action.lengthIncrement,
         currentPage: 1,
         tickets: {
-            ...state,
+            ...state.tickets,
             ...action.pages
         }
     }
@@ -52,10 +78,18 @@ const initialFetchFail = (state, action) => {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.PAGE_INCREMENT_NORMAL: return pageIncrement(state,action);
+        // Back 
         case actionTypes.PAGE_DECREMENT: return pageDecrement(state,action);
-        case actionTypes.INITIAL_FETCH_SUCCESS: return initialFetchSuccess(state,action);
+
+        // Next
+        case actionTypes.PAGE_INCREMENT_NORMAL: return pageIncrement(state,action);
+        case actionTypes.PAGE_INCREMENT_START: return pageIncrementStart(state,action);
+        case actionTypes.PAGE_INCREMENT_SUCCESS: return pageIncrementSuccess(state,action);
+        case actionTypes.PAGE_INCREMENT_FAIL: return pageIncrementFail(state,action);
+
+        //Initial Fetch
         case actionTypes.INITIAL_FETCH_START: return initialFetchStart(state,action);
+        case actionTypes.INITIAL_FETCH_SUCCESS: return initialFetchSuccess(state,action);
         case actionTypes.INITIAL_FETCH_FAIL: return initialFetchFail(state,action);
         default: return state
     }

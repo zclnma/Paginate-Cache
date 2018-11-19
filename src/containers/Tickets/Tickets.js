@@ -25,10 +25,14 @@ class Tickets extends Component {
   render() {
 
     let ticketArea = <div className={style.ticketArea}><Spinner /></div>
-    if (!this.props.loading){
+
+    if (this.props.error) {
+      ticketArea = <div>{this.props.error}</div>
+    }
+    if (!this.props.loading && !this.props.error){
       ticketArea = 
       <div className={style.ticketArea}>
-        { this.props.tickets[this.props.currentPage].map((ticket,index) => (
+        { this.props.tickets[this.props.currentPage - 1].map((ticket,index) => (
           <Ticket key={index} coreData={ticket.coreData} serviceData={ticket.serviceData}/>
         ))} 
       </div>
@@ -38,11 +42,11 @@ class Tickets extends Component {
       <div className={style.container}>
         <div className={style.item}>
           <button 
-            disabled={this.props.currentPage === 0 || this.props.loading} 
+            disabled={this.props.currentPage === 1 || this.props.loading} 
             onClick={() => this.pageHandler('back')}>Back</button>
           </div>
         <div className={style.item}> 
-          Page {this.props.currentPage + 1} of {this.props.totalPage + 1}
+          Page {this.props.currentPage} of {this.props.totalPage }
         </div>
         <div className={style.item}>
           <button 
@@ -63,6 +67,7 @@ class Tickets extends Component {
 
 const mapStateToProps = state => {
   return {
+    error: state.error,
     counter: state.counter,
     tickets: state.tickets,
     loading: state.loading,

@@ -53,7 +53,6 @@ class Ticket extends Component {
 
   render(){
     const { classes, coreData, serviceData} = this.props;
-    const moreData = this.props.coreData.moreData;
     return (
       <>
       <Card onClick={this.clickHandler} className={classes.card}>
@@ -77,7 +76,7 @@ class Ticket extends Component {
           </div>
         </CardContent>
         <CardActions>
-            <Drawer number={coreData.number} serviceData={serviceData}/>
+            <Drawer number={coreData.number} serviceData={serviceData} shortDescription={coreData.shortDescription}/>
         </CardActions>
       </Card>
 

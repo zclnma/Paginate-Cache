@@ -1,3 +1,7 @@
+export const axiosTickets = () => {
+    
+}
+
 export const pageTransformer = (page) => {
     const newPage = page.map(ticket => {
         Object.keys(ticket.serviceData).forEach(service => (

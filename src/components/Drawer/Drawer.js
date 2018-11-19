@@ -47,6 +47,10 @@ class TemporaryDrawer extends React.Component {
       <div className={classes.list}>
         <List>
           <ListItem>{number}</ListItem>
+          <ListItem >
+              <div className={classes.key}>short description</div>
+              <div className={classes.value}>{this.props.shortDescription}</div>
+            </ListItem>
           { serviceData ? Object.keys(serviceData).map((key,index) => (
             <ListItem key={index}>
               <div className={classes.key}>{key}</div>
@@ -78,6 +82,7 @@ TemporaryDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   serviceData: PropTypes.object.isRequired,
   number: PropTypes.string.isRequired,
+  shortDescription: PropTypes.string.isRequired
 };
 
 export default withStyles(styles)(TemporaryDrawer);

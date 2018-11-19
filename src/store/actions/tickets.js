@@ -2,7 +2,7 @@ import * as actionTypes from './actionTypes';
 
 export const pageIncrement = () => {
     return {
-        type: actionTypes.PAGE_INCREMENT
+        type: actionTypes.PAGE_INCREMENT,
     }
 }
 

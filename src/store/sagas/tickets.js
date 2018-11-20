@@ -5,7 +5,7 @@ import axios from '../../service/axios/axiosTickets';
 //import {responseTransformer} from '../../utils/utils';
 
 function* responseTransformer (responses){
-    // Transform response data from 
+    // Transform response from API to array with only serveiceData and coreData
     let pages = yield responses.map(response => response.data);
     let lastPage = null;
 
@@ -17,7 +17,8 @@ function* responseTransformer (responses){
         }
         return page.map(ticket => {
             Object.keys(ticket.serviceData).forEach(service => (
-                !ticket.serviceData[service] && ticket.serviceData[service] !== undefined) && delete ticket.serviceData[service]
+                !ticket.serviceData[service] && ticket.serviceData[service] !== undefined) 
+                && delete ticket.serviceData[service]
             );
             return {
                 coreData: ticket.coreData,
@@ -31,6 +32,7 @@ function* responseTransformer (responses){
     return {newPages, lastPage};
 }
 
+// Fetch data from the API endpoint
 function* fetchData (totalPage){
     const paramString = '/tickets?ticketType=incident&sortDirection=DESC&perPage=12&page='
     const params = [
@@ -44,10 +46,13 @@ function* fetchData (totalPage){
         `${paramString}${totalPage + 7}`,
     ]
     let responses  = yield params.map(param => call(axios, param)) 
+
+    //return transformed data
     return yield responseTransformer(responses);
 }
 
 export function* initialFetchSaga(action){
+    //Initial Fetch
     yield put({
         type: actionTypes.INITIAL_FETCH_START,
     })
@@ -79,13 +84,15 @@ export function* initialFetchSaga(action){
 }
 
 export function* pageIncrementSaga(action){
+    //Page Increment
     const currentPage = yield select(state => state.currentPage);
     const totalPage = yield select(state => state.totalPage);
     const isError = yield select(state => state.isError);
     const isAllLoaded = yield select(state => state.isAllLoaded);
     console.log(currentPage,totalPage);
-    // if pages increase too fast
+    // if pages increase too fast show Spinner
     if((currentPage < totalPage) || isError ){
+        // if user is looking at the last page, reach out to the server to fetch more data
         if (totalPage - currentPage === 1 && !isAllLoaded){
             yield put({
                 type: actionTypes.PAGE_INCREMENT_START,
@@ -93,6 +100,8 @@ export function* pageIncrementSaga(action){
             try{
                 let {newPages, lastPage}  = yield fetchData (totalPage);
                 //console.log('fetch data successful')
+
+                //if it is the last page, dispatch TICKETS_LOADED, else deal with it as normal pages
                 if(lastPage){
                     yield put({
                         type: actionTypes.TICKETS_LOADED,
@@ -107,6 +116,7 @@ export function* pageIncrementSaga(action){
                     }) 
                 }                             
             } catch(error) {
+                
                 //console.log(error)
                 yield put({
                     type: actionTypes.PAGE_INCREMENT_FAIL,
@@ -124,7 +134,9 @@ export function* pageIncrementSaga(action){
     }
 }
 
+
 export function* pageReloadSaga(action) {
+    //Page Reload
     const totalPage = yield select(state => state.totalPage);
     const currentPage = yield select(state => state.currentPage);
     console.log(currentPage);

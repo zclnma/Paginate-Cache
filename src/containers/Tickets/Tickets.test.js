@@ -10,15 +10,6 @@ configure({adapter: new Adapter()})
 describe('<Tickets />',() => {
     let wrapper;
     beforeEach(() => {
-        wrapper = shallow(
-            <Tickets 
-                onInitialFetch={() => {}}
-                currentPage="2"
-                totalPage="4"
-                 />)
-    })
-
-    it('should render <Pager /> at any time' , () => {
-        expect(wrapper.find(Pager)).toHaveLength(1);
+        wrapper = shallow(<Tickets />)
     })
 })

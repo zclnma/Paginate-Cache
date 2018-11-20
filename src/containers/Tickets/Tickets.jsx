@@ -6,15 +6,11 @@ import axios from '../../service/axios/axiosTickets';
 import Ticket from '../../components/Tickets/Ticket/Ticket';
 import Spinner from '../../components/Tickets/Spinner/Spinner';
 import Error from '../../components/Tickets/Error/Error';
-import ErrorHandler from '../../components/Shared/errorHandler';
+import Pager from '../../components/Tickets/Pager/Pager';
+
+import ErrorHandler from '../../components/Hoc/errorHandler';
 
 import style from './Tickets.module.scss';
-
-
-const buttonType = {
-  BACK: 'back',
-  NEXT: 'next',
-}
 
 class Tickets extends Component {
 
@@ -22,59 +18,40 @@ class Tickets extends Component {
       this.props.onInitialFetch()
   }
 
-  pageHandler = (type) => {
-    if(type === buttonType.BACK){
-        this.props.onBack()
-    }
-    if(type === buttonType.NEXT){
-        this.props.onNext()
-    }
-  }
-
   render() {
 
-    const {isLoading, isFetching, isError, currentPage, totalPage, tickets} = this.props;
+    const {isLoading, isFetching, isError, currentPage, totalPage, tickets, isAllLoaded} = this.props;
 
-    let ticketArea 
+    let ticketArea;
 
     if (isLoading || isFetching) {
-      ticketArea = <div className={style.tickets}><Spinner /></div>
+      ticketArea = <Spinner />
     }
     else if (isError && (totalPage === 0 || (currentPage > totalPage))) {
-      ticketArea = <div className={style.tickets} ><Error clicked={() => this.props.onReload()}/></div>
+      ticketArea = <Error clicked={() => this.props.onReload()}/>
     }
-    else if (!isLoading && !isError){
+    else {
       ticketArea = 
-      <div className={style.tickets}>
+      <>
         { tickets[currentPage - 1].map((ticket,index) => (
           <Ticket key={index} coreData={ticket.coreData} serviceData={ticket.serviceData}/>
         ))} 
-      </div>
+      </>
     }
 
-    let pager = (
-      <div className={style.page}>
-        <div className={style.item}>
-          <button 
-            disabled={currentPage === 1 || isLoading} 
-            onClick={() => this.pageHandler(buttonType.BACK)}>Back</button>
-          </div>
-        <div className={style.item}> 
-          Page {currentPage} of {totalPage }
-        </div>
-        <div className={style.item}>
-          <button 
-            disabled={totalPage === currentPage - 1 || isLoading} 
-            onClick={() => this.pageHandler(buttonType.NEXT)}>Next</button>
-        </div>
-    </div>
-    )
-
     return (
-      <>
-        {ticketArea}
-        {pager}
-      </>
+      <div className={style.container}>
+        <div className={style.tickets}>
+          {ticketArea}
+        </div>
+        <Pager 
+          currentPage={currentPage} 
+          totalPage={totalPage} 
+          isLoading={isLoading} 
+          isAllLoaded={isAllLoaded}
+          backClicked={() => this.props.onBack()}
+          nextClicked={() => this.props.onNext()}/>
+      </div>
     )
   }
 }
@@ -86,7 +63,8 @@ const mapStateToProps = state => {
     tickets: state.tickets,
     isLoading: state.isLoading,
     currentPage: state.currentPage,
-    totalPage: state.totalPage
+    totalPage: state.totalPage,
+    isAllLoaded: state.isAllLoaded,
   }
 }
 
@@ -99,4 +77,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Tickets);
+export default connect(mapStateToProps,mapDispatchToProps)(ErrorHandler(Tickets, axios));

@@ -8,10 +8,10 @@ import {
     pageReloadSaga
 } from './tickets'
 
-export function* watchSaga() {
+export function* watchTickets() {
     yield all([
         takeEvery(actionsTypes.INITIAL_FETCH, initialFetchSaga),
         takeEvery(actionsTypes.PAGE_INCREMENT, pageIncrementSaga),
-        takeEvery(actionsTypes.PAGE_RELOAD,pageReloadSaga)
+        takeEvery(actionsTypes.PAGE_RELOAD, pageReloadSaga)
     ])
 }

@@ -1,22 +1,16 @@
-.tickets {
-    width: 840px;
-    height: 580px;
-    padding-top: 50px;
-    margin: auto;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.page {
-    width: 400px;
-    display: flex;
-    justify-content: center;
-    margin: auto;
-    margin-top: 20px;
-    margin-bottom: 40px;
-    padding: auto;
-    .item {
+.container{
+    width: 1000px;
+    text-align: center;
+    display: block;
+    .tickets {
+        width: 840px;
+        height: 580px;
+        padding-top: 50px;
         margin: auto;
+        display: flex;
+        flex-wrap: wrap;
     }
 }
+
+
 

@@ -18,6 +18,7 @@ npm start
 
 You will be able to see the page in ``` http://localhost:3000/ ```
 
+Total time taken to build the app: Around 15-20 hrs including learning redux-saga
 
 ## Authors
 

@@ -7,7 +7,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
-import Drawer from 'components/Drawer/Drawer';
+import Drawer from '../Drawer/Drawer';
 
 const styles = {
   card: {
@@ -39,23 +39,12 @@ const styles = {
   }
 };
 
-class Ticket extends Component {
-  state = {
-    showDrawer: false
-  }
+const Ticket = (props) => {
 
-  componentDidMount = () => {
-    
-  }
-  clickHandler = () => {
-    console.log('Card Clicked')
-  }
+    const { classes, coreData, serviceData} = props;
 
-  render(){
-    const { classes, coreData, serviceData} = this.props;
     return (
-      <>
-      <Card onClick={this.clickHandler} className={classes.card}>
+      <Card className={classes.card}>
         <CardContent>
           <Typography className={classes.title} color="textSecondary" gutterBottom>
             {coreData.sta}
@@ -79,15 +68,12 @@ class Ticket extends Component {
             <Drawer number={coreData.number} serviceData={serviceData} shortDescription={coreData.shortDescription}/>
         </CardActions>
       </Card>
-
-    </>
     );
-  }
 }
 
 Ticket.propTypes = {
   classes: PropTypes.object.isRequired,
-  //coreData: PropTypes.object.isRequired,
+  coreData: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Ticket);

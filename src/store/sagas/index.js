@@ -4,12 +4,14 @@ import * as actionsTypes from '../actions/actionTypes';
 
 import {
     initialFetchSaga,
-    pageIncrementSaga
+    pageIncrementSaga,
+    pageReloadSaga
 } from './tickets'
 
 export function* watchSaga() {
     yield all([
         takeEvery(actionsTypes.INITIAL_FETCH, initialFetchSaga),
         takeEvery(actionsTypes.PAGE_INCREMENT, pageIncrementSaga),
+        takeEvery(actionsTypes.PAGE_RELOAD,pageReloadSaga)
     ])
 }

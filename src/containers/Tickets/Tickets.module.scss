@@ -1,12 +1,13 @@
-.ticketArea {
+.tickets {
     width: 840px;
+    height: 580px;
     padding-top: 50px;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
 }
 
-.container {
+.page {
     width: 400px;
     display: flex;
     justify-content: center;

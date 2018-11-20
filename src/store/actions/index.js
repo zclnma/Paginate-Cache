@@ -1,5 +1,6 @@
 export {
+    initialFetch,
+    pageReload,
     pageDecrement,
     pageIncrement,
-    initialFetch,
 } from './tickets'

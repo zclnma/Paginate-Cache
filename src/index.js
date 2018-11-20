@@ -4,7 +4,6 @@ import {Provider} from 'react-redux';
 import { applyMiddleware, createStore, compose} from 'redux'
 import createSagaMiddleware from 'redux-saga';
 
-import './index.css';
 import App from './App';
 import ticketsReducer from 'store/reducers/tickets';
 import {
@@ -12,6 +11,9 @@ import {
 } from 'store/sagas/index'
 
 import * as serviceWorker from './serviceWorker';
+
+import './index.css';
+
 
 const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
 

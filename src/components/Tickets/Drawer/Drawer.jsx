@@ -5,8 +5,6 @@ import Drawer from '@material-ui/core/Drawer';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import { Hidden } from '@material-ui/core';
-
 
 const styles = {
   list: {
@@ -29,7 +27,7 @@ const styles = {
   }
 };
 
-class TemporaryDrawer extends React.Component {
+export class TemporaryDrawer extends React.Component {
   state = {
     show: false,
   };

@@ -1,8 +1,8 @@
 import React, { Component} from 'react';
 
-import Tickets from 'containers/Tickets/Tickets';
+import Tickets from 'containers/Tickets/Tickets.jsx';
 
-import style from './App.scss';
+import style from './App.css';
 
 class App extends Component {
   render() {
